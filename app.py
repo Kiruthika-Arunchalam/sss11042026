@@ -213,31 +213,31 @@ st.dataframe(final_df, width='stretch')
 # ---------------------------
 # CHART (NO GRID)
 # ---------------------------
-st.markdown('<div class="section">DATE WISE OPERATOR DISTRIBUTION</div>', unsafe_allow_html=True)
+# st.markdown('<div class="section">DATE WISE OPERATOR DISTRIBUTION</div>', unsafe_allow_html=True)
 
-operator_trend = (
-    filtered_df.groupby(["Inserted_Date", "Operator_Code"])
-    .size()
-    .reset_index(name="Count")
-)
+# operator_trend = (
+#     filtered_df.groupby(["Inserted_Date", "Operator_Code"])
+#     .size()
+#     .reset_index(name="Count")
+# )
 
-fig = px.bar(
-    operator_trend,
-    x="Inserted_Date",
-    y="Count",
-    color="Operator_Code",
-    barmode="stack",
-    color_discrete_sequence=px.colors.qualitative.Bold
-)
+# fig = px.bar(
+#     operator_trend,
+#     x="Inserted_Date",
+#     y="Count",
+#     color="Operator_Code",
+#     barmode="stack",
+#     color_discrete_sequence=px.colors.qualitative.Bold
+# )
 
-# REMOVE GRID 🔥
-fig.update_layout(
-    xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=False),
-    plot_bgcolor="white"
-)
+# # REMOVE GRID 🔥
+# fig.update_layout(
+#     xaxis=dict(showgrid=False),
+#     yaxis=dict(showgrid=False),
+#     plot_bgcolor="white"
+# )
 
-st.plotly_chart(fig, width='stretch')
+# st.plotly_chart(fig, width='stretch')
 
 # ---------------------------
 # OPERATOR ANALYTICS (NEW)
