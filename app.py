@@ -168,7 +168,8 @@ if to_port:
 # ✅ ADD THIS HERE
 filtered_df = filtered_df.dropna(subset=["Inserted_Date", "Operator_Code"])
 if "Inserted_Date" not in filtered_df.columns:
-    filtered_df["Inserted_Date"] = filtered_df["Inserted_At"]
+    
+    #filtered_df["Inserted_Date"] = filtered_df["Inserted_At"]
 
 
 # ---------------------------
