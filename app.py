@@ -155,10 +155,10 @@ summary_df = (
 )
 
 # ---------------------------
-# FILTER LOGIC (CORRECT ORDER)
+# FILTER LOGIC (CORRECT)
 # ---------------------------
 
-filtered_df = df.copy()
+filtered_df = df.copy()   # ✅ FIRST create
 
 if operator:
     filtered_df = filtered_df[filtered_df["Operator_Code"].isin(operator)]
@@ -169,11 +169,8 @@ if from_port:
 if to_port:
     filtered_df = filtered_df[filtered_df["To_Port"].isin(to_port)]
 
-# ✅ CLEAN AFTER FILTER
+# ✅ THEN CLEAN
 filtered_df = filtered_df.dropna(subset=["Inserted_Date", "Operator_Code"])
-    
-    #filtered_df["Inserted_Date"] = filtered_df["Inserted_At"]
-
 
 # ---------------------------
 # KPI CARDS
