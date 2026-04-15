@@ -107,7 +107,8 @@ df = load_data()
 df["Inserted_At"] = pd.to_datetime(
     df["Inserted_At"],
     errors="coerce",
-    dayfirst=True   # 🔥 IMPORTANT FIX
+    dayfirst=True,
+    infer_datetime_format=True
 )
 df["Inserted_Date"] = df["Inserted_At"]
 print(df[df["Inserted_At"].astype(str).str.contains("2026-04-14", na=False)])
