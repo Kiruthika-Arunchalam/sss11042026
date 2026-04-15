@@ -100,6 +100,13 @@ def load_data():
     return df
 
 df = load_data()
+# ---------------------------
+# APPLY DATE PARSING (MISSING STEP)
+# ---------------------------
+df["Inserted_At"] = df["Inserted_At"].apply(parse_date)
+
+# create Inserted_Date column
+df["Inserted_Date"] = df["Inserted_At"]
 
 # ---------------------------
 # DATE CLEAN (FIXED)
