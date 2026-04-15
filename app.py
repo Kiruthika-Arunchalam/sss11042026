@@ -100,23 +100,16 @@ def load_data():
     return df
 
 df = load_data()
-# ---------------------------
-# APPLY DATE PARSING (MISSING STEP)
-# ---------------------------
-df["Inserted_At"] = df["Inserted_At"].apply(parse_date)
-
-# create Inserted_Date column
-df["Inserted_Date"] = df["Inserted_At"]
 
 # ---------------------------
-# DATE CLEAN (FIXED)
+# DATE CLEAN FUNCTION (MOVE HERE)
 # ---------------------------
 def parse_date(x):
     x = str(x).strip()
 
     formats = [
         "%d-%m-%Y %H:%M",
-        "%d-%m-%Y %H:%M:%S",   # 🔥 THIS FIXES YOUR ISSUE
+        "%d-%m-%Y %H:%M:%S",
         "%d-%m-%Y"
     ]
 
@@ -127,6 +120,15 @@ def parse_date(x):
             continue
 
     return pd.NaT
+# ---------------------------
+# APPLY DATE PARSING (MISSING STEP)
+# ---------------------------
+df["Inserted_At"] = df["Inserted_At"].apply(parse_date)
+
+# create Inserted_Date column
+df["Inserted_Date"] = df["Inserted_At"]
+
+        
 # ---------------------------
 # FILTERS
 # ---------------------------
