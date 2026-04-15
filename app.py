@@ -104,14 +104,17 @@ df = load_data()
 # ---------------------------
 # DATE CLEAN (FIXED)
 # ---------------------------
-df["Inserted_At"] = pd.to_datetime(
-    df["Inserted_At"],
-    errors="coerce",
-    dayfirst=True,
-    infer_datetime_format=True
-)
+def parse_date(x):
+    try:
+        return pd.to_datetime(x, format="%d-%m-%Y %H:%M")
+    except:
+        try:
+            return pd.to_datetime(x, format="%d-%m-%Y")
+        except:
+            return pd.NaT
+
+df["Inserted_At"] = df["Inserted_At"].astype(str).str.strip().apply(parse_date)
 df["Inserted_Date"] = df["Inserted_At"]
-print(df[df["Inserted_At"].astype(str).str.contains("2026-04-14", na=False)])
 
 # ---------------------------
 # FILTERS
