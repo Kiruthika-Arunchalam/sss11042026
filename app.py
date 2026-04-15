@@ -104,9 +104,13 @@ df = load_data()
 # ---------------------------
 # DATE CLEAN (FIXED)
 # ---------------------------
-df["Inserted_At"] = pd.to_datetime(df["Inserted_At"], errors="coerce")
+df["Inserted_At"] = pd.to_datetime(
+    df["Inserted_At"],
+    errors="coerce",
+    dayfirst=True   # 🔥 IMPORTANT FIX
+)
 df["Inserted_Date"] = df["Inserted_At"]
-
+print(df[df["Inserted_At"].astype(str).str.contains("2026-04-14", na=False)])
 
 # ---------------------------
 # FILTERS
