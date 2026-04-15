@@ -70,7 +70,7 @@ st.markdown("""
 # ---------------------------
 # TITLE
 # ---------------------------
-st.markdown('<div class="title">SSS DATA ANALYTICS (FEB)</div>', unsafe_allow_html=True)
+st.markdown('<div class="title">SSS DATA ANALYTICS</div>', unsafe_allow_html=True)
 
 # ---------------------------
 # LOAD DATA
