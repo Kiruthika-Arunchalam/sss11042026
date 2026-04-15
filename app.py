@@ -105,17 +105,21 @@ df = load_data()
 # DATE CLEAN (FIXED)
 # ---------------------------
 def parse_date(x):
-    try:
-        return pd.to_datetime(x, format="%d-%m-%Y %H:%M")
-    except:
+    x = str(x).strip()
+
+    formats = [
+        "%d-%m-%Y %H:%M",
+        "%d-%m-%Y %H:%M:%S",   # 🔥 THIS FIXES YOUR ISSUE
+        "%d-%m-%Y"
+    ]
+
+    for fmt in formats:
         try:
-            return pd.to_datetime(x, format="%d-%m-%Y")
+            return pd.to_datetime(x, format=fmt)
         except:
-            return pd.NaT
+            continue
 
-df["Inserted_At"] = df["Inserted_At"].astype(str).str.strip().apply(parse_date)
-df["Inserted_Date"] = df["Inserted_At"]
-
+    return pd.NaT
 # ---------------------------
 # FILTERS
 # ---------------------------
