@@ -4,12 +4,21 @@ import plotly.express as px
 import zipfile
 import requests
 import pydeck as pdk
+import os
 
 
 # ---------------------------
 # CONFIG
 # ---------------------------
 st.set_page_config(page_title="SSS Dashboard", layout="wide")
+
+def style_chart(fig):   # ✅ FIX 2 (missing function)
+    fig.update_layout(
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        font_color="black"
+    )
+    return fig
 
 # ---------------------------
 # GRADIENT CSS (🔥 PREMIUM)
@@ -57,6 +66,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
 # ---------------------------
 # TITLE
 # ---------------------------
@@ -64,11 +74,6 @@ st.markdown('<div class="title">SSS DATA ANALYTICS (FEB)</div>', unsafe_allow_ht
 
 # ---------------------------
 # LOAD DATA
-import zipfile
-import requests
-import io
-
-# ---------------------------
 @st.cache_data
 def load_data():
     zip_files = [f for f in os.listdir() if f.endswith(".zip")]
@@ -85,19 +90,24 @@ def load_data():
             st.stop()
 
         with z.open(csv_files[0]) as f:
-            df = pd.read_csv(f, encoding="cp1252")
+            df = pd.read_csv(
+                f,
+                encoding="cp1252",
+                low_memory=False,
+                dtype=str   # ✅ FIX 3 (prevent crash)
+            )
 
     return df
 
 df = load_data()
-#---------------
-# DATE CLEAN
-# ---------------------------
-df["Inserted_Date"] = pd.to_datetime(df["Inserted_At"]).dt.strftime('%Y-%m-%d')
 
 # ---------------------------
-# FILTERS
+# DATE CLEAN (FIXED)
 # ---------------------------
+df["Inserted_At"] = pd.to_datetime(df["Inserted_At"], errors="coerce")
+df["Inserted_Date"] = df["Inserted_At"]
+
+
 # ---------------------------
 # FILTERS
 # ---------------------------
