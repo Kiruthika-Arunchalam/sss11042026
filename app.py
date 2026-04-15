@@ -146,13 +146,7 @@ to_port = col4.multiselect(
     "To Port",
     sorted(df["To_Port"].dropna().astype(str).unique())
 )
-filtered_df = filtered_df.dropna(subset=["Inserted_Date", "Operator_Code"])
 
-summary_df = (
-    filtered_df.groupby(["Inserted_Date", "Operator_Code"])
-    .size()
-    .reset_index(name="Count")
-)
 
 # ---------------------------
 # FILTER LOGIC (CORRECT)
@@ -205,7 +199,7 @@ total = pd.DataFrame({
 
 final_df = pd.concat([summary_df, total])
 
-st.dataframe(final_df, use_container_width=True)
+st.dataframe(final_df, width='stretch')
 
 # ---------------------------
 # CHART (NO GRID)
@@ -234,7 +228,7 @@ fig.update_layout(
     plot_bgcolor="white"
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width='stretch')
 
 # ---------------------------
 # OPERATOR ANALYTICS (NEW)
@@ -284,7 +278,7 @@ if view_mode == "Top Operators (Bar)":
     fig.update_traces(textposition="outside")
     fig.update_layout(showlegend=False)
 
-    st.plotly_chart(style_chart(fig), use_container_width=True)
+    st.plotly_chart(style_chart(fig), width='stretch')
 
 # ---------------------------
 # TREEMAP VIEW
@@ -333,7 +327,7 @@ fig_tree.update_layout(
     margin=dict(t=30, l=10, r=10, b=10)
 )
 
-st.plotly_chart(style_chart(fig_tree), use_container_width=True)
+st.plotly_chart(style_chart(fig_tree), width='stretch')
 # ---------------------------
 # TOP ROUTES (PROPER COLORS)
 # ---------------------------
@@ -364,7 +358,7 @@ fig_route.update_layout(
     showlegend=False  # cleaner UI
 )
 
-st.plotly_chart(fig_route, use_container_width=True)
+st.plotly_chart(fig_route, width='stretch')
 # ---------------------------
 # SERVICE DISTRIBUTION
 # ---------------------------
@@ -395,7 +389,7 @@ fig_service.update_layout(
     plot_bgcolor="white"
 )
 
-st.plotly_chart(fig_service, use_container_width=True)
+st.plotly_chart(fig_service, width='stretch')
 
 # ---------------------------
 # COMPARISON
