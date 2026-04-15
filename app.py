@@ -154,6 +154,10 @@ summary_df = (
     .reset_index(name="Count")
 )
 
+# ---------------------------
+# FILTER LOGIC (CORRECT ORDER)
+# ---------------------------
+
 filtered_df = df.copy()
 
 if operator:
@@ -165,9 +169,8 @@ if from_port:
 if to_port:
     filtered_df = filtered_df[filtered_df["To_Port"].isin(to_port)]
 
-# ✅ ADD THIS HERE
+# ✅ CLEAN AFTER FILTER
 filtered_df = filtered_df.dropna(subset=["Inserted_Date", "Operator_Code"])
-if "Inserted_Date" not in filtered_df.columns:
     
     #filtered_df["Inserted_Date"] = filtered_df["Inserted_At"]
 
